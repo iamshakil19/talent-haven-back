@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.patch(
     '/update',
-    auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SYSTEM_ADMIN, ENUM_USER_ROLE.USER),
+    auth(ENUM_USER_ROLE.CANDIDATE, ENUM_USER_ROLE.SYSTEM_ADMIN, ENUM_USER_ROLE.EMPLOYER),
     validateRequest(ProfileValidation.updateProfileZodSchema),
     ProfileController.updateProfile
 );

@@ -2,7 +2,7 @@
 import { Model, Types } from 'mongoose';
 import { IProfile } from '../profile/profile.interface';
 
-export type IUserRole = 'systemAdmin' | 'user' | 'admin'
+export type IUserRole = 'systemAdmin' | 'candidate' | 'employer'
 export type TUserStatus = 'active' | 'inactive' | 'suspend';
 
 export interface IUser {
