@@ -12,6 +12,7 @@ const registerZodSchema = z.object({
       required_error: 'Passwords is required',
     }),
     role: z.string().optional(),
+    phone: z.string().optional(),
     status: z.string().optional(),
     isDeleted: z.boolean().optional(),
   }),

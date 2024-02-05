@@ -5,10 +5,17 @@ const updateProfileZodSchema = z.object({
         user: z.string({
             required_error: 'User is required',
         }),
-        image: z.string().optional(),
+        profileImage: z.string().optional(),
         permanentAddress: z.string().optional(),
         presentAddress: z.string().optional(),
         dateOfBirth: z.string().optional(),
+        social: z.object({
+            facebook: z.string().optional(),
+            website: z.string().optional(),
+            twitter: z.string().optional(),
+            linkedin: z.string().optional(),
+            instagram: z.string().optional(),
+        })
     }),
 });
 

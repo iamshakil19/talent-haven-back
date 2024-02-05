@@ -9,7 +9,7 @@ const ProfileSchema = new mongoose.Schema<IProfile>(
             required: true,
             ref: 'User',
         },
-        image: {
+        profileImage: {
             type: String,
         },
         permanentAddress: {
@@ -21,6 +21,27 @@ const ProfileSchema = new mongoose.Schema<IProfile>(
         dateOfBirth: {
             type: String,
         },
+        companySize: {
+            type: String,
+        },
+        social: {
+            facebook: {
+                type: String,
+            },
+            twitter: {
+                type: String,
+            },
+            linkedin: {
+                type: String,
+            },
+            instagram: {
+                type: String,
+            },
+            website: {
+                type: String,
+            }
+        }
+
     }
 )
 

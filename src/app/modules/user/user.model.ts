@@ -27,6 +27,10 @@ const UserSchema = new Schema<IUser, UserModel>(
       default: 'candidate',
       required: true
     },
+    phone: {
+      type: String,
+      // default: null
+    },
     status: {
       type: String,
       enum: userStatus,
@@ -41,7 +45,7 @@ const UserSchema = new Schema<IUser, UserModel>(
     profile: {
       type: Schema.Types.ObjectId,
       ref: 'Profile',
-      default: null
+      // default: null
     },
   },
   {

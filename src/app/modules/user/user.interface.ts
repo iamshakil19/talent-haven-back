@@ -9,6 +9,7 @@ export interface IUser {
   name: string;
   email: string;
   role: IUserRole,
+  phone?: string;
   password: string;
   status: TUserStatus;
   profile?: Types.ObjectId | IProfile;
