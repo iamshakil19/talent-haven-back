@@ -12,10 +12,7 @@ const ProfileSchema = new mongoose.Schema<IProfile>(
         profileImage: {
             type: String,
         },
-        permanentAddress: {
-            type: String,
-        },
-        presentAddress: {
+        address: {
             type: String,
         },
         dateOfBirth: {

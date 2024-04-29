@@ -6,8 +6,7 @@ const updateProfileZodSchema = z.object({
             required_error: 'User is required',
         }),
         profileImage: z.string().optional(),
-        permanentAddress: z.string().optional(),
-        presentAddress: z.string().optional(),
+        address: z.string().optional(),
         dateOfBirth: z.string().optional(),
         social: z.object({
             facebook: z.string().optional(),

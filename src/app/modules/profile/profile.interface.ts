@@ -12,8 +12,7 @@ export interface ISocial {
 export interface IProfile {
     user?: Types.ObjectId | IUser;
     profileImage?: string;
-    permanentAddress: string;
-    presentAddress: string;
+    address: string;
     dateOfBirth: string;
     companySize: string;
     social: ISocial;

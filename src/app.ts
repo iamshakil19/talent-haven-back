@@ -8,7 +8,7 @@ import notFound from './app/middlewares/notFound';
 
 const app: Application = express();
 
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3001', credentials: true }));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -19,8 +19,8 @@ app.use('/api/v1/', routes);
 
 // Testing
 app.get('/', (req: Request, res: Response) => {
-    res.send('✅ Working Successfully')
-})
+  res.send('✅ Working Successfully');
+});
 
 // Global Error Handler
 app.use(globalErrorHandler);
@@ -29,4 +29,3 @@ app.use(globalErrorHandler);
 app.use(notFound);
 
 export default app;
-
