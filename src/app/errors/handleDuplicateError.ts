@@ -22,7 +22,7 @@ const handleDuplicateError = (error: any): TGenericErrorResponse => {
 
   return {
     statusCode,
-    message: 'Duplicate error',
+    message: 'Duplicate-error',
     errorSources,
   };
 };
