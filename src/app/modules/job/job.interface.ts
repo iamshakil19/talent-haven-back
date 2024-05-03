@@ -8,8 +8,8 @@ export interface IJob {
   type: string;
   category: string;
   location: string;
-  experience: string;
-  salary: string;
+  experience: number;
+  salary: number;
   isUrgent: boolean;
   technology: string[];
 }

@@ -6,10 +6,7 @@ import httpStatus from 'http-status';
 import { IJob } from './job.interface';
 
 const createJob = catchAsync(async (req: Request, res: Response) => {
-  const { ...loginData } = req.body;
-
   const result = await JobService.createJob(req?.user, req.body);
-
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -18,6 +15,17 @@ const createJob = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllJob = catchAsync(async (req: Request, res: Response) => {
+  const result = await JobService.getAllJob(req.query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Jobs are retrieved successfully',
+    data: result,
+  });
+});
+
 export const JobController = {
   createJob,
+  getAllJob,
 };

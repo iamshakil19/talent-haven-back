@@ -5,12 +5,13 @@ import { User } from '../user/user.model';
 import { validateUser } from '../../utils/validateUser';
 import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { JobSearchableFields } from './job.constant';
 
 const createJob = async (
   requestedUser: JwtPayload | null,
   payload: Partial<IJob>,
 ): Promise<IJob | null> => {
-    
   const user = await User.findOne({ email: requestedUser?.email });
   validateUser(user);
 
@@ -22,6 +23,24 @@ const createJob = async (
   return result;
 };
 
+const getAllJob = async (query: Record<string, unknown>) => {
+  const userQuery = new QueryBuilder(Job.find().populate('employer'), query)
+    .search(JobSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await userQuery.modelQuery;
+  const meta = await userQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
+};
+
 export const JobService = {
   createJob,
+  getAllJob,
 };

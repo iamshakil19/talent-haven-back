@@ -30,11 +30,11 @@ const JobSchema = new mongoose.Schema<IJob>(
       required: true,
     },
     experience: {
-      type: String,
+      type: Number,
       required: true,
     },
     salary: {
-      type: String,
+      type: Number,
       required: true,
     },
     isUrgent: {

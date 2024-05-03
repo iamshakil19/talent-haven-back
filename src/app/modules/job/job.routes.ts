@@ -14,4 +14,9 @@ router.post(
   JobController.createJob,
 );
 
+router.get(
+  '/all-jobs',
+  JobController.getAllJob
+)
+
 export const JobRoutes = router;
