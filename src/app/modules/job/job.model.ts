@@ -45,6 +45,15 @@ const JobSchema = new mongoose.Schema<IJob>(
       type: [String],
       required: true,
     },
+    expDate: {
+      type: Date,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+      default: 'active',
+    },
   },
   {
     timestamps: true,

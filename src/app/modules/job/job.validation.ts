@@ -13,6 +13,8 @@ const JobCreateZodSchema = z.object({
     technology: z.array(z.string()).refine(value => value.some(item => item), {
       message: 'Technology is required',
     }),
+    expDate: z.string({ required_error: 'Expiry Date is required' }),
+    status: z.string().optional(),
   }),
 });
 

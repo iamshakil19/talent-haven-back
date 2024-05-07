@@ -16,6 +16,8 @@ const createJob = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllJob = catchAsync(async (req: Request, res: Response) => {
+  console.log(req.query);
+  
   const result = await JobService.getAllJob(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,

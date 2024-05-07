@@ -8,6 +8,8 @@ import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { JobSearchableFields } from './job.constant';
 
+
+
 const createJob = async (
   requestedUser: JwtPayload | null,
   payload: Partial<IJob>,
@@ -36,7 +38,7 @@ const getAllJob = async (query: Record<string, unknown>) => {
 
   return {
     meta,
-    result,
+    data: result,
   };
 };
 

@@ -12,4 +12,6 @@ export interface IJob {
   salary: number;
   isUrgent: boolean;
   technology: string[];
+  expDate: Date;
+  status: string;
 }
