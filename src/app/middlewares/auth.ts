@@ -4,42 +4,36 @@ import { JwtPayload, Secret } from 'jsonwebtoken';
 import config from '../config';
 import AppError from '../errors/AppError';
 import { jwtHelpers } from '../helpers/jwtHelpers';
-import catchAsync from '../utils/catchAsync';
-import { User } from '../modules/user/user.model';
-import { validateUser } from '../utils/validateUser';
 
-const auth =
-  (...requiredRoles: string[]) => {
-
-    return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+const auth = (...roles: string[]) => {
+  return async (
+    req: Request & { user?: any },
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
       const token = req.headers.authorization;
 
-      // checking if the token is missing
       if (!token) {
         throw new AppError(httpStatus.UNAUTHORIZED, 'You are not authorized!');
       }
 
-      let decoded = null;
+      const verifiedUser = jwtHelpers.verifyToken(
+        token,
+        config.jwt.secret as Secret,
+      );
+      
 
-      decoded = jwtHelpers.verifyToken(token, config.jwt.secret as Secret);
+      req.user = verifiedUser;
 
-      const { role, email, iat } = decoded;
-
-      // checking if the user is exist
-      const user = await User.isUserExist(email);
-
-      validateUser(user)
-
-      if (requiredRoles && !requiredRoles.includes(role)) {
-        throw new AppError(
-          httpStatus.UNAUTHORIZED,
-          'You are not authorized  hi!',
-        );
+      if (roles.length && !roles.includes(verifiedUser.role)) {
+        throw new AppError(httpStatus.FORBIDDEN, 'Forbidden!');
       }
-
-      req.user = decoded as JwtPayload & { role: string };
       next();
-    });
-  }
+    } catch (err) {
+      next(err);
+    }
+  };
+};
 
 export default auth;

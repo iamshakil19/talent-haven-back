@@ -27,11 +27,17 @@ class QueryBuilder<T> {
 
   filter() {
     const queryObj: Record<string, unknown> = { ...this.query };
-
     // Filtering
     const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
 
     excludeFields.forEach(el => delete queryObj[el]);
+
+    Object.keys(queryObj).forEach(key => {
+      const value = queryObj[key];
+      if (typeof value === 'string' && (value as string).includes(',')) {
+        queryObj[key] = (value as string).split(',');
+      }
+    });
 
     // for operator filtering
     let filterString = JSON.stringify(queryObj);

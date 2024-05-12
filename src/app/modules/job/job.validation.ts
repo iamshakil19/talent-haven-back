@@ -14,7 +14,10 @@ const JobCreateZodSchema = z.object({
       message: 'Technology is required',
     }),
     expDate: z.string({ required_error: 'Expiry Date is required' }),
+    slug: z.string({ required_error: 'Slug is required' }),
     status: z.string().optional(),
+    views: z.number().optional(),
+    isDeleted: z.boolean().optional(),
   }),
 });
 

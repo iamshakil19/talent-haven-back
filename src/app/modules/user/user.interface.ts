@@ -19,7 +19,7 @@ export interface IUser {
 export type UserModel = {
   isUserExist(
     email: string
-  ): Promise<IUser>;
+  ): Promise<any>;
 
 
   isPasswordMatched(

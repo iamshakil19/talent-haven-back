@@ -1,4 +1,6 @@
-
 export const JobSearchableFields = [
-    'title', 'category'
+  'title',
+  'category',
+  'type',
+  'location',
 ];

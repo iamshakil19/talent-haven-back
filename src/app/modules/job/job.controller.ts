@@ -16,8 +16,6 @@ const createJob = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllJob = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.query);
-  
   const result = await JobService.getAllJob(req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -27,7 +25,46 @@ const getAllJob = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyAllJob = catchAsync(async (req: Request, res: Response) => {
+  const result = await JobService.getMyAllJob(req.query, req.user);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Jobs are retrieved successfully',
+    data: result,
+  });
+});
+
+const getSingleJob = catchAsync(async (req: Request, res: Response) => {
+  const { slug } = req.params;
+console.log(slug);
+
+  const result = await JobService.getSingleJob(slug);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Job retrieved successfully !',
+    data: result,
+  });
+});
+
+const deleteJob = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await JobService.deleteJob(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Successfully deleted',
+    data: result,
+  });
+});
+
 export const JobController = {
   createJob,
   getAllJob,
+  deleteJob,
+  getMyAllJob,
+  getSingleJob,
 };

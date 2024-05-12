@@ -7,8 +7,7 @@ import AppError from '../../errors/AppError';
 import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { JobSearchableFields } from './job.constant';
-
-
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const createJob = async (
   requestedUser: JwtPayload | null,
@@ -26,15 +25,24 @@ const createJob = async (
 };
 
 const getAllJob = async (query: Record<string, unknown>) => {
-  const userQuery = new QueryBuilder(Job.find().populate('employer'), query)
+  const filter = { isDeleted: false };
+  const jobQuery = new QueryBuilder(
+    Job.find(filter).populate({
+      path: 'employer',
+      populate: {
+        path: 'profile',
+      },
+    }),
+    query,
+  )
     .search(JobSearchableFields)
     .filter()
     .sort()
     .paginate()
     .fields();
 
-  const result = await userQuery.modelQuery;
-  const meta = await userQuery.countTotal();
+  const result = await jobQuery.modelQuery;
+  const meta = await jobQuery.countTotal();
 
   return {
     meta,
@@ -42,7 +50,62 @@ const getAllJob = async (query: Record<string, unknown>) => {
   };
 };
 
+const getMyAllJob = async (
+  query: Record<string, unknown>,
+  user: JwtPayload,
+) => {
+  const filter = { isDeleted: false, employer: new ObjectId(user.id) };
+
+  const jobQuery = new QueryBuilder(
+    Job.find(filter).populate({
+      path: 'employer',
+      populate: {
+        path: 'profile',
+      },
+    }),
+    query,
+  )
+    .search(JobSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await jobQuery.modelQuery;
+  const meta = await jobQuery.countTotal();
+
+  return {
+    meta,
+    data: result,
+  };
+};
+
+const getSingleJob = async (slug: string) => {
+  const result = await Job.findOne({ slug }).populate({
+    path: 'employer',
+    populate: {
+      path: 'profile',
+    },
+  });
+  return result;
+};
+
+const deleteJob = async (id: string) => {
+  console.log(id);
+
+  const result = await Job.findByIdAndUpdate(
+    id,
+    { isDeleted: true },
+    { new: true },
+  );
+
+  return result;
+};
+
 export const JobService = {
   createJob,
   getAllJob,
+  deleteJob,
+  getMyAllJob,
+  getSingleJob,
 };

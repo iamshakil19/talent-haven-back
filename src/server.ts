@@ -7,7 +7,7 @@ import { Server as SocketIOServer } from 'socket.io';
 // import { initializeSocket } from './app/utils/socket';
 
 process.on('uncaughtException', error => {
-  errorLogger.error(error);
+  // errorLogger.error(error);
   process.exit(1);
 });
 
@@ -42,14 +42,14 @@ async function main() {
     //   });
     // });
   } catch (error) {
-    errorLogger.error(`❌ Failed to connect database: ${error}`);
+    // errorLogger.error(`❌ Failed to connect database: ${error}`);
     console.log(`❌ Failed to connect database: ${error}`);
   }
 
   process.on('unhandledRejection', error => {
     if (server) {
       server.close(() => {
-        errorLogger.error(error);
+        // errorLogger.error(error);
         process.exit(1);
       });
     } else {
@@ -60,7 +60,7 @@ async function main() {
 main();
 
 process.on('SIGTERM', () => {
-  logger.info('SIGTERM is received');
+  // logger.info('SIGTERM is received');
   if (server) {
     server.close();
   }

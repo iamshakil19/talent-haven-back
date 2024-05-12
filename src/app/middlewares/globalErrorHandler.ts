@@ -17,11 +17,12 @@ const globalErrorHandler: ErrorRequestHandler = (
   error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   config.env === 'development'
     ? console.log('❌ GlobalErrorHandler ~', { error })
-    : errorLogger.error('❌ GlobalErrorHandler ~', error);
+    : // errorLogger.error('❌ GlobalErrorHandler ~', error);
+      console.log('❌ GlobalErrorHandler ~', { error });
 
   let statusCode = 500;
   let message = 'Something went wrong';
@@ -38,30 +39,22 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSources = simplifiedError?.errorSources;
-  }
-
-  else if (error instanceof ZodError) {
+  } else if (error instanceof ZodError) {
     const simplifiedError = handleZodError(error);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  }
-
-  else if (error?.name === 'CastError') {
+  } else if (error?.name === 'CastError') {
     const simplifiedError = handleCastError(error);
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorSources = simplifiedError?.errorSources;
-  }
-
-  else if (error.code === 11000) {
+  } else if (error.code === 11000) {
     const simplifiedError = handleDuplicateError(error);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  }
-
-  else if (error instanceof AppError) {
+  } else if (error instanceof AppError) {
     statusCode = error?.statusCode;
     message = error.message;
     errorSources = [
@@ -70,9 +63,7 @@ const globalErrorHandler: ErrorRequestHandler = (
         message: error?.message,
       },
     ];
-  }
-
-  else if (error instanceof Error) {
+  } else if (error instanceof Error) {
     message = error.message;
     errorSources = [
       {

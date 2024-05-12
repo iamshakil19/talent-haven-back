@@ -54,6 +54,18 @@ const JobSchema = new mongoose.Schema<IJob>(
       required: true,
       default: 'active',
     },
+    slug: {
+      type: String,
+      required: true,
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

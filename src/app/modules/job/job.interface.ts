@@ -8,10 +8,13 @@ export interface IJob {
   type: string;
   category: string;
   location: string;
+  slug: string;
   experience: number;
   salary: number;
   isUrgent: boolean;
   technology: string[];
   expDate: Date;
+  views: number;
+  isDeleted: boolean;
   status: string;
 }
