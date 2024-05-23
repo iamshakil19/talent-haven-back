@@ -49,6 +49,11 @@ class QueryBuilder<T> {
 
     const finalQueryObj = JSON.parse(filterString);
 
+    // Checking if technology here & technology are array then filter using $in operator
+    if (finalQueryObj.technology && Array.isArray(finalQueryObj.technology)) {
+      finalQueryObj.technology = { $in: finalQueryObj.technology };
+    }
+
     this.modelQuery = this.modelQuery.find(finalQueryObj as FilterQuery<T>);
 
     return this;

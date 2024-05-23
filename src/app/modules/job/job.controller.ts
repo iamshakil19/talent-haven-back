@@ -37,8 +37,6 @@ const getMyAllJob = catchAsync(async (req: Request, res: Response) => {
 
 const getSingleJob = catchAsync(async (req: Request, res: Response) => {
   const { slug } = req.params;
-console.log(slug);
-
   const result = await JobService.getSingleJob(slug);
 
   sendResponse(res, {
