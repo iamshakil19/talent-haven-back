@@ -35,6 +35,16 @@ const getMyAllJob = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAnalytics = catchAsync(async (req: Request, res: Response) => {
+  const result = await JobService.getAnalytics(req);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Job analytics are retrieved successfully',
+    data: result,
+  });
+});
+
 const getSingleJob = catchAsync(async (req: Request, res: Response) => {
   const { slug } = req.params;
   const result = await JobService.getSingleJob(slug);
@@ -65,4 +75,5 @@ export const JobController = {
   deleteJob,
   getMyAllJob,
   getSingleJob,
+  getAnalytics,
 };

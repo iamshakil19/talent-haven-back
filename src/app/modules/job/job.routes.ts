@@ -18,9 +18,12 @@ router.get('/all-jobs', JobController.getAllJob);
 router.get('/all-my-jobs', auth(USER_ROLE.EMPLOYER), JobController.getMyAllJob);
 
 router.get(
-  '/:slug',
-  JobController.getSingleJob,
+  '/analytics',
+  auth(USER_ROLE.SYSTEM_ADMIN, USER_ROLE.EMPLOYER, USER_ROLE.CANDIDATE),
+  JobController.getAnalytics,
 );
+
+router.get('/:slug', JobController.getSingleJob);
 router.delete(
   '/:id',
   auth(USER_ROLE.EMPLOYER, USER_ROLE.SYSTEM_ADMIN),

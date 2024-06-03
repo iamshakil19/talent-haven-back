@@ -16,5 +16,5 @@ export interface IJob {
   expDate: Date;
   views: number;
   isDeleted: boolean;
-  status: string;
+  status: 'active' | 'block' | 'hired';
 }
